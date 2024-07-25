@@ -1,0 +1,23 @@
+nextflow_process {
+
+    name "Test Process COPY"
+    script "copy.nf"
+    process "COPY"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = file("${baseDir}/data/test.paired_end.bam")
+                """
+            }
+        }
+
+        then {
+            assert snapshot(process.out.bam.collect { bam(it).getReads() }).match()
+        }
+
+    }
+
+}

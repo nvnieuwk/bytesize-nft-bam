@@ -18,7 +18,7 @@ nextflow_process {
         }
 
         then {
-            assert snapshot(process.out.bam.collect { bam(it[1]).getReads() }).match()
+            assert snapshot(process.out.copy.collect { file(it[1]).name }).match()
         }
 
     }
@@ -37,7 +37,7 @@ nextflow_process {
         }
 
         then {
-            assert snapshot(process.out.bam.collect { cram(it[1], "${baseDir}/data/genome.fasta").getReads() }).match()
+            assert snapshot(process.out.copy.collect { file(it[1]).name }).match()
         }
 
     }

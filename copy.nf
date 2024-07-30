@@ -3,7 +3,7 @@ process COPY {
     tuple val(meta), path(input)
 
     output:
-    tuple val(meta), path("*.{bam,cram}"), emit: bam
+    tuple val(meta), path("*.${input.extension}"), emit: copy
 
     script:
     """

@@ -1,12 +1,12 @@
 process COPY {
     input:
-    path(input)
+    tuple val(meta), path(input)
 
     output:
-    path("*.{bam,cram}"), emit: bam
+    tuple val(meta), path("*.{bam,cram}"), emit: bam
 
     script:
     """
-    cp $input ${input.baseName}.copy.${input.extension}
+    cp $input copy.${input.extension}
     """
 }

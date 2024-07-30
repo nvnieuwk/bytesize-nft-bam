@@ -9,13 +9,16 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = file("${baseDir}/data/test.paired_end.bam")
+                input[0] = [
+                    [id:"test"],
+                    file("${baseDir}/data/test.paired_end.bam")
+                ]
                 """
             }
         }
 
         then {
-            assert snapshot(process.out.bam.collect { bam(it).getReads() }).match()
+            assert snapshot(process.out.bam.collect { bam(it[1]).getReads() }).match()
         }
 
     }
